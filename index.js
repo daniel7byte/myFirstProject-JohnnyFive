@@ -6,49 +6,59 @@ var keypress = require("keypress");
 var board = new five.Board();
 
 board.on("ready", function() {
-
-  // Make `process.stdin` begin emitting "keypress" events
-  keypress(process.stdin);
+  // Indicador
   console.log("Placa lista.");
 
   // Declaramos los puertos
-  var led = new five.Led(11);
+  var ledAmarillo = new five.Led(11);
+  var ledRojo = new five.Led(8);
 
   // Strobe on-off in 500ms phases
   var strobe = 500;
+  var incrementador = 50;
+
+  // Make `process.stdin` begin emitting "keypress" events
+  keypress(process.stdin);
 
   process.stdin.on("keypress", function(ch, key){
 
     // Si presionamos la tecla de direccion arriba
     if (key.name === "up") {
-      led.fadeIn();
+      ledAmarillo.fadeIn();
       // Muestra el texto adelante en la consola
       console.log("\nEncendido");
     }
 
     // Si presionamos la tecla de direccion bajo
     if (key.name === "down") {
-      led.fadeOut();
-      // Muestra en la consola el texto Atras
+      ledAmarillo.fadeOut();
+      // Muestra en la consola el texto
       console.log("\nApagado");
     }
 
     // Si presionamos la tecla de direccion derecha
     if (key.name === "right") {
-      led.strobe(strobe);
-      // Muestra en la consola el texto Atras
+      ledAmarillo.strobe(strobe);
+      // Muestra en la consola el texto
       console.log("\nStrobe: " + strobe + "ms");
       // Incrementa el valor
-      strobe = strobe + 10;
+      strobe = strobe + incrementador;
     }
 
     // Si presionamos la tecla de direccion izquierda
     if (key.name === "left") {
-      led.strobe(strobe);
-      // Muestra en la consola el texto Atras
+      ledAmarillo.strobe(strobe);
+      // Muestra en la consola el texto
       console.log("\nStrobe: " + strobe + "ms");
       // Incrementa el valor
-      strobe = strobe - 10;
+      strobe = strobe - incrementador;
+    }
+
+    // Si presionamos la tecla x
+    if (key.name === "x") {
+      ledRojo.toggle();
+      // Muestra en la consola el texto
+      console.log("\nSwitch on/off");
     }
 
   });
