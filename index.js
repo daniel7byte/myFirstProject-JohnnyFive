@@ -79,7 +79,7 @@ board.on("ready", function() {
 
       // "start" events fire when the motor is started.
       motor.on("start", function() {
-        console.log("start", Date.now());
+        console.log("\nStart", Date.now());
 
         // Demonstrate motor stop in 2 seconds
         board.wait(2000, function() {
@@ -89,7 +89,7 @@ board.on("ready", function() {
 
       // "stop" events fire when the motor is stopped.
       motor.on("stop", function() {
-        console.log("stop", Date.now());
+        console.log("\nStop", Date.now());
       });
 
       // Motor API
