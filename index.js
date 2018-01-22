@@ -14,6 +14,9 @@ board.on("ready", function() {
   // Declaramos los puertos
   var led = new five.Led(11);
 
+  // Strobe on-off in 500ms phases
+  var strobe = 500;
+
   process.stdin.on("keypress", function(ch, key){
 
     // Si presionamos la tecla de direccion arriba
@@ -28,6 +31,24 @@ board.on("ready", function() {
       led.fadeOut();
       // Muestra en la consola el texto Atras
       console.log("\nApagado");
+    }
+
+    // Si presionamos la tecla de direccion derecha
+    if (key.name === "right") {
+      led.strobe(strobe);
+      // Muestra en la consola el texto Atras
+      console.log("\nStrobe: " + strobe + "ms");
+      // Incrementa el valor
+      strobe = strobe + 10;
+    }
+
+    // Si presionamos la tecla de direccion izquierda
+    if (key.name === "left") {
+      led.strobe(strobe);
+      // Muestra en la consola el texto Atras
+      console.log("\nStrobe: " + strobe + "ms");
+      // Incrementa el valor
+      strobe = strobe - 10;
     }
 
   });
